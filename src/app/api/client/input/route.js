@@ -1,9 +1,9 @@
-import prisma from "@/libs/prisma";
+import {db} from "@/libs/Firebase"
+import { ref, push } from "firebase/database";
 
 export async function POST(request) {
   try {
     const body = await request.json();
-
     const { nama, satfung, perihal, no_pengajuan } = body;
 
     // validasi data yang dikirim dari  client
@@ -16,14 +16,14 @@ export async function POST(request) {
       });
     }
 
-    // simpan data ke database
-    const dataAmbilNomor = await prisma.ambilnomor.create({
-      data: {
+    // simpan data ke Firebase Realtime Database
+    const dataRef = ref(db, "ambilnomor");
+    await push(dataRef, {
         nama,
         satfung,
         perihal,
         no_pengajuan,
-      },
+        createdAt: new Date().toISOString(),
     });
 
     return new Response(JSON.stringify({ message: "Data berhasil disimpan" }), {
