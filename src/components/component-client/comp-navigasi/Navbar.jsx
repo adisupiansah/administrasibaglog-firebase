@@ -14,6 +14,11 @@ const Navbar = () => {
   // Fungsi untuk menambahkan kelas "active"
   const isActive = (url) => (pathname === url ? "active-navbar-client" : "");
 
+  // javascript bootstrap
+  useEffect(() => {
+    require("bootstrap/dist/js/bootstrap.bundle.min.js");
+  }, [])
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg fixed-top">
