@@ -67,12 +67,10 @@ const InputDisposisi = () => {
         title: "Berhasil",
         text: "Data berhasil disimpan!",
         icon: "success",
-        confirmButtonColor: "#72bf78",
-        confirmButtonText: "OK",
+        showConfirmButton: false,
+        timer: 1500,
         color: "#D9D9D9",
         background: "#212529",
-      }).then(() => {
-        window.location.href = "/admin/disposisi";
       });
       
       // reset form setelah submit

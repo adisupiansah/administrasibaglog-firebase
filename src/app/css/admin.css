@@ -17,6 +17,7 @@
   --white-color: #ffffff;
   --black-color: #1e1e1e;
   --grey-color: #D9D9D9;
+  --purple-color: rgb(170, 96, 200);
 }
 
 * {
@@ -136,6 +137,20 @@
 .card-text-disposisi
 span {
   color: var(--green-color);
+}
+
+.card .title-pengajuan{
+  color: var(--purple-color);
+  font-size: 40px;
+  font-weight: 600;
+}
+.card-text-pengajuan{
+  color: var(--white-color);
+  font-size: 14px;
+}
+.card-text-pengajuan
+span {
+  color: var(--purple-color);
 }
 
 .card-text-ndranmor{

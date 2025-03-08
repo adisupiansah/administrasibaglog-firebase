@@ -18,6 +18,8 @@ const BarChart = () => {
   const [hitungHarwatDisposisi, setHitungHarwatDisposisi] = useState(0);
   const [hitungBMPDisposisi, setHitungBMPDisposisi] = useState(0);
 
+  const [hitungPengajuanNotaDinas, setHitungPengajuanNotaDinas] = useState(0);
+
   const groupByMonth = (data, dateField) => {
     const groupedData = Array(12).fill(0); // Array untuk 12 bulan
     data.forEach((item) => {
@@ -76,6 +78,18 @@ const BarChart = () => {
     }
   };
 
+  const hitungPengajuan = async () => {
+    try {
+      const response = await fetch('/api/client/ambildata')
+      const data = await response.json()
+
+      const pengajuanByMonth = groupByMonth(data, 'createdAt')
+      setHitungPengajuanNotaDinas(pengajuanByMonth)
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  } 
+
   const InisialisasiChart = () => {
     if (chart.current !== null) {
       chart.current.destroy();
@@ -108,6 +122,12 @@ const BarChart = () => {
           label: "Disposisi Masuk",
           data: hitungSeluruhDisposisi,
           backgroundColor: "rgb(114,191,120)",
+          borderColor: 1,
+        },
+        {
+          label: "Pengajuan Notadinas",
+          data: hitungPengajuanNotaDinas,
+          backgroundColor: "rgb(170, 96, 200)",
           borderColor: 1,
         },
       ],
@@ -199,6 +219,7 @@ const BarChart = () => {
   useEffect(() => {
     hitungNotadinas();
     hitungDisposisi();
+    hitungPengajuan();
   }, []);
 
   return (

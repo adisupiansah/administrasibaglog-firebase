@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 const CardView = () => {
   const [seluruhDataDisposisi, setSeluruhDataDisposisi] = useState(0);
   const [seluruhDataNotaDinas, setSeluruhDataNotaDinas] = useState(0);
+  const [seluruhDataPengajuan, setSeluruhDataPengajuan] = useState(0)
 
   const [seluruhDisposisiBMP, setSeluruhDisposisiBMP] = useState(0);
   const [seluruhDisposisiHarwat, setSeluruhDisposisiHarwat] = useState(0);
@@ -27,6 +28,13 @@ const CardView = () => {
       const data2 = await response2.json();
       const result2 = data2.length;
       setSeluruhDataNotaDinas(result2);
+
+      // menghitung seluruh data pengajuan notadinas
+      const response3 = await fetch('/api/client/ambildata')
+      const data3 = await response3.json()
+      const result3 = data3.length
+      setSeluruhDataPengajuan(result3)
+
 
       // Menghiung Seluruh data disposisi BMP dan Harwat
       const harwatDisposisi = data.filter((item) => item.type_disposisi === 'disposisi Harwat').length;
@@ -58,7 +66,7 @@ const CardView = () => {
     <div className="card-view">
       <div className="container">
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-md-2">
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">NOTA DINAS KELUAR</h5>
@@ -71,13 +79,25 @@ const CardView = () => {
             </div>
           </div>
 
-          <div className="col-md-3">
+          <div className="col-md-2">
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">DISPOSISI MASUK</h5>
                 <h1 className="title-disposisi">{seluruhDataDisposisi}</h1>
                 <div className="card-text-disposisi">
                   Disposisi masuk sebanyak <span className="">{seluruhDataDisposisi}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-md-2">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">PENGAJUAN NOTADINAS</h5>
+                <h1 className="title-pengajuan">{seluruhDataPengajuan}</h1>
+                <div className="card-text-pengajuan">
+                  Pengajuan Nomr ND sebanyak <span className="">{seluruhDataPengajuan}</span>
                 </div>
               </div>
             </div>

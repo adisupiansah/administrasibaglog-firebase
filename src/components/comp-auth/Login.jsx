@@ -5,88 +5,40 @@ import LogoLogistik from "@/app/img/logoLogistik.png";
 import polres from "@/app/img/logoPolres.png";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
-import { useUser } from "@/context/UserContext";
+import { auth } from "@/libs/Firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
   const router = useRouter();
 
-  const { setAdminName } = useUser();
-  
   const handleLogin = async (e) => {
     e.preventDefault();
-    // Cek jika username dan password kosong
-    if (!username || !password) {
-      Swal.fire({
-        title: "Error",
-        text: "Username dan password harus diisi",
-        icon: "error",
-        confirmButtonColor: "#72bf78",
-        confirmButtonText: "OK",
-        color: "#D9D9D9",
-        background: "#212529",
-      });
-      return;
-    }
-
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      Swal.fire({
+        icon: "success",
+        title: "Login berhasil!",
+        text: "Selamat datang, " + userCredential.user.email,
+        showConfirmButton: false,
+        timer: 1500,
+        background: "#1e1e1e",
+        color: "#D9D9D9",
+      }).then(() => {
+        router.push("/admin");
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        Swal.fire({
-          title: "Berhasil",
-          text: data.message,
-          icon: "success",
-          color: "#D9D9D9",
-          background: "#212529",
-        }).then(() => {
-         
-          const tester = setAdminName(data.username);
-          console.log('data user:',tester);
-          
-
-          sessionStorage.setItem("username", data.username);
-          router.push("/admin");
-        })
-      } else {
-        Swal.fire({
-          title: "Error",
-          text: data.message,
-          icon: "error",
-          confirmButtonColor: "#72bf78",
-          confirmButtonText: "OK",
-          color: "#D9D9D9",
-          background: "#212529",
-        });
-      }
     } catch (error) {
-      Swal.fire("Error", "Terjadi kesalahan saat login", "error");
+      setMessage( error.message);
     }
   };
 
-  // cek apakah user sudah login
-  const ceklogin = async () => {
-    const response = await fetch('/api/auth/ceklogin')
-    if(response.ok) {
-      router.push('/admin');
-    }
-  }
-  
-  useEffect(() => {
-    ceklogin();
-  }, [])
   return (
     <div className="container login">
       <div className="row">
@@ -112,14 +64,19 @@ const Login = () => {
                   <div className="d-flex flex-column col-md-12 mt-3 text-center">
                     <h3>Login</h3>
                     <p>WELCOME TO SILOGAD RESKARIMUN</p>
+                    {message && (
+                      <div className="alert alert-danger" role="alert">
+                        {message}
+                      </div>
+                    )}
                     <form onSubmit={handleLogin}>
                       <input
-                        type="text"
+                        type="email"
                         className="form-control "
-                        placeholder="Username"
-                        name="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
 
                       <input
