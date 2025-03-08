@@ -81,7 +81,7 @@ const ViewHarwat = () => {
     <div className="viewharwat">
       <div className="container">
         <div className="row">
-          <div className="col-md-12 d-flex justify-content-center align-items-center vh-100">
+          <div className="col-md-12">
             <div className="card">
               <div className="card-body">
                 {loading ? (

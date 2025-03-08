@@ -163,7 +163,7 @@ const PengajuanNotaDinas = () => {
                     <tbody>
                       {data.map((item, index) => {
                         // konversi waktu dari UTC ke waktu Jakarta
-                        const UTCwaktu = new Date(item.tgl_pengajuan);
+                        const UTCwaktu = new Date(item.createdAt);
                         const waktuJakarta = moment(UTCwaktu)
                           .tz("Asia/Jakarta")
                           .format("DD-MM-YYYY - HH:mm:ss");

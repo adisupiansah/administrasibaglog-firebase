@@ -22,6 +22,9 @@ export async function GET(request) {
         // Ubah data ke dalam format array
         const data = Object.values(snapshot.val());
 
+        // urutkan data berdasarkan createdAt secara descending
+        data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
         return new Response(
             JSON.stringify(data), {
                 status: 200,

@@ -40,8 +40,8 @@ export async function GET(request) {
                 ...value
             }));
 
-            // Urutkan berdasarkan ID secara descending (opsional)
-            data.sort((a, b) => b.id.localeCompare(a.id));
+            // Urutkan berdasarkan createdAt secara descending
+            data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
             return new Response(JSON.stringify(data), {
                 status: 200,

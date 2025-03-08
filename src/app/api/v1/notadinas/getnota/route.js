@@ -26,6 +26,9 @@ export async function GET() {
             });
         });
 
+        // Urutkan berdasarkan createdAt secara descending
+        notadinas.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
         return new Response(JSON.stringify(notadinas), {
             status: 200,
             headers: { "Content-Type": "application/json" },
