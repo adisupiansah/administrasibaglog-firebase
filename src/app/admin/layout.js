@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "@/app/css/admin.css";
 import Navigasibar from "@/components/Navigasi/Navigasibar";
 import CekClientLogin from "@/libs/CekClientLogin";
+import ProtectedLayout from "./ProtectedLayout";
 
 export const metadata = {
   // LOGAD (LOGISTIK ADMINISTRASI)
@@ -13,11 +14,9 @@ export const metadata = {
 export default function AdminLayout({ children }) {
   return (
     <>
-      <div className="body">
-        {/* <CekClientLogin /> */}
-        <Navigasibar />
+      <ProtectedLayout>
         {children}
-      </div>
+      </ProtectedLayout>
     </>
   );
 }

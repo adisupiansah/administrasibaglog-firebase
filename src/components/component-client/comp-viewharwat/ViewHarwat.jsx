@@ -85,7 +85,9 @@ const ViewHarwat = () => {
             <div className="card">
               <div className="card-body">
                 {loading ? (
-                  <div className="spinner text-primary"></div>
+                  <div className="d-flex justify-content-center align-items-center">
+                    <div className="loader"></div>
+                  </div>
                 ) : (
                   <table className="table table-striped table-dark" id="monitor">
                     <thead>
