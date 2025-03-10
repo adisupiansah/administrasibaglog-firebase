@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { Chart, registerables } from "chart.js";
-import { FaMinusCircle } from "react-icons/fa";
-import { FaPlusCircle } from "react-icons/fa";
+import { FaSquareMinus } from "react-icons/fa6";
+import { FaWindowMaximize } from "react-icons/fa6";
 
 Chart.register(...registerables); // Registrasi semua modul Chart.js
 
@@ -138,19 +138,19 @@ const ChartBar = () => {
           <div className="col-md-12 col-sm-12 my-4">
             <div className="card card-mychartPolar">
               <div className="d-flex justify-content-between align-items-center mx-3 my-3">
-                {/* Tombol di pojok kanan */}
-                <span className="fs-3 cursor-pointer minimize-chart" onClick={toggleCard}>
-                  {isOpen ? <FaMinusCircle /> : <FaPlusCircle />}
-                </span>
 
                 {/* Teks di tengah */}
                 <span className="text-center flex-grow-1 text-minimize">
                   {isOpen ? "" : "Chart Data Tertutup"}
                 </span>
+                {/* Tombol di pojok kanan */}
+                <span className="fs-4 cursor-pointer minimize-chart" onClick={toggleCard}>
+                  {isOpen ? <FaSquareMinus /> : <FaWindowMaximize />}
+                </span>
               </div>
 
               {isOpen && (
-                <div className="card-body">
+                <div className={`card-body card-bar ${isOpen ? "show" : "close"}`}>
                   <canvas ref={chartPolaRef} className="chartPola"></canvas>
                 </div>
               )}

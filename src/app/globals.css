@@ -152,3 +152,36 @@ form textarea {
   animation: l3 1s infinite linear;
 }
 @keyframes l3 {to{transform: rotate(1turn)}}
+
+/* animasi card */
+@keyframes buka {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); 
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px); 
+  }
+}
+.card-bar{
+  position: relative;
+  opacity: 0;
+}
+.card-bar.show {
+  animation: buka 0.5s forwards;
+}
+.card-bar.close {
+  animation: fadeOutDown 3s forwards;
+}
+
