@@ -518,6 +518,7 @@ span {
   background-color: var(--yellow-color);
   font-weight: 500;
   color: var(--black-color);
+  border-radius: 5px;
 }
 .btn-editdisposisi:hover{
   border: 1px solid var(--yellow-color);
@@ -528,6 +529,7 @@ span {
   background-color: var(--red-color);
   font-weight: 500;
   color: var(--white-color);
+  border-radius: 5px;
 }
 .btn-deletedisposisi:hover{
   border: 1px solid var(--red-color);

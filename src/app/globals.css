@@ -117,6 +117,23 @@ form textarea {
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+/* chart client */
+.minimize-chart{
+  cursor: pointer;
+}
+.text-minimize{
+  color: var(--red-color);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* Card client */
+.cardClient-text-harwat{
+  color: var(--red-color);
+}
+.cardClient-text-bmp{
+  color: var(--yellow-color);
+}
 
 /* HTML: <div class="loader"></div> */
 .loader {

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import InitTable from "@/libs/datatables-config";
 import moment from "moment-timezone";
+import CardClient from "./CardClient";
 
 const ViewHarwat = () => {
   const [data, setData] = useState([]);
@@ -39,7 +40,7 @@ const ViewHarwat = () => {
   //   fetch data
   const ambilData = async () => {
     try {
-      const response = await fetch("/api/v1/disposisi/getdisposisi");
+      const response = await fetch("/api/client/filter-disposisi");
 
       if (!response.ok) {
         throw new Error("gagal mengambil data");
@@ -82,6 +83,7 @@ const ViewHarwat = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
+            <CardClient/>
             <div className="card">
               <div className="card-body">
                 {loading ? (
