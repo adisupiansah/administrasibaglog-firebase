@@ -135,7 +135,7 @@ const ChartBar = () => {
     <div className="mychart">
       <div className="container">
         <div className="row">
-          <div className="col-md-12 col-sm-12 my-4">
+          <div className="col-md-12 col-sm-12 mt-4">
             <div className="card card-mychartPolar">
               <div className="d-flex justify-content-between align-items-center mx-3 my-3">
 

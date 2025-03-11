@@ -79,7 +79,7 @@ form textarea {
   color: var(--white);
   font-weight: 600;
   font-size: 16px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .btn{
@@ -87,7 +87,7 @@ form textarea {
   color: var(--white-color);
   font-weight: 600;
   font-size: 16px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .btn:hover{
   background-color: var(--background);
@@ -95,7 +95,7 @@ form textarea {
   color: var(--white);
   font-weight: 600;
   font-size: 16px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .kolo {
   padding-top: 90px;
@@ -184,4 +184,3 @@ form textarea {
 .card-bar.close {
   animation: fadeOutDown 3s forwards;
 }
-

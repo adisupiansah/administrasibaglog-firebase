@@ -64,7 +64,7 @@ const PengajuanNotaDinas = () => {
 
   const DeleteData = () => {
     return (
-      <button className="btn" onClick={handleDeleteDataPengajuan}>
+      <button className="btn btn-deletedisposisi" onClick={handleDeleteDataPengajuan}>
         delete
       </button>
     );
@@ -101,8 +101,8 @@ const PengajuanNotaDinas = () => {
             },
           },
         ],
-        topEnd: [tombolBack],
-        bottomEnd: [btnDelete, 'paging'],
+        topEnd: [btnDelete],
+        bottomEnd: 'paging',
       },
       scrollX: true,
     });

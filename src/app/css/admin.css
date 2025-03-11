@@ -536,15 +536,16 @@ span {
   color: var(--white-color);
 }
 .btn-addtoprint{
-  background-color: var(--green-color);
-  color: var(--black-color);
+  background-color: var(--blue-color);
+  color: var(--grey-color);
   font-weight: 500;
-  font-size: 16px;
-  border-radius: 7px;
+  font-size: 17px;
+  border-radius: 5px;
+  padding: 10px 15px;
 }
 .btn-addtoprint:hover{
-  background-color: #47814c;
-  color: var(--black-color);
+  background-color: #1e4d99;
+  color: var(--grey-color);
 }
 /* .btn-viewpdf{
   background-color: var(--blue-color);
@@ -817,3 +818,35 @@ span {
   animation: l3 1s infinite linear;
 }
 @keyframes l3 {to{transform: rotate(1turn)}}
+
+/* animasi card */
+@keyframes buka {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); 
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px); 
+  }
+}
+.card-bar{
+  position: relative;
+  opacity: 0;
+}
+.card-bar.show {
+  animation: buka 0.5s forwards;
+}
+.card-bar.close {
+  animation: fadeOutDown 3s forwards;
+}

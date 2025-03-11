@@ -6,9 +6,9 @@ import ProtectedLayout from "./ProtectedLayout";
 
 export const metadata = {
   // LOGAD (LOGISTIK ADMINISTRASI)
-  title: "SILOGAD RESKARIMUN",
+  title: "SALOKA RESKARIMUN",
   description:
-    "SILOGAD - SISTEM INFORMASI LOGISTIK DAN ADMINISTRASI RESKARIMUN",
+    "SALOKA - SISTEM ADMINISTRASI LOGISTIK POLRES KARIMUN",
 };
 
 export default function AdminLayout({ children }) {

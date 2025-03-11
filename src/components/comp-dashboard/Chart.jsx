@@ -1,12 +1,15 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { Chart, registerables } from "chart.js";
+import { FaSquareMinus } from "react-icons/fa6";
+import { FaWindowMaximize } from "react-icons/fa6";
 
 Chart.register(...registerables); // Registrasi semua modul Chart.js
 
 const BarChart = () => {
   const chartRef = useRef(null);
   const chartPolaRef = useRef(null);
+  const chartInstance = useRef(null);
   const chart = useRef(null);
   const chart2 = useRef(null);
 
@@ -19,6 +22,11 @@ const BarChart = () => {
   const [hitungBMPDisposisi, setHitungBMPDisposisi] = useState(0);
 
   const [hitungPengajuanNotaDinas, setHitungPengajuanNotaDinas] = useState(0);
+
+  const [isOpen, setIsOpen] = useState({
+    chart: false,
+    chart2: false,
+  })
 
   const groupByMonth = (data, dateField) => {
     const groupedData = Array(12).fill(0); // Array untuk 12 bulan
@@ -96,6 +104,7 @@ const BarChart = () => {
     }
 
     const ctx = chartRef.current.getContext("2d");
+    if (!ctx) return;
     const data = {
       labels: [
         "Januari",
@@ -133,9 +142,18 @@ const BarChart = () => {
       ],
     };
     const options = {
+      responsive: true,
       scales: {
         y: {
           beginAtZero: true,
+          grid: {
+            color: "#373A40", // Warna garis kotak-kotak di sumbu Y
+          },
+        },
+        x: {
+          grid: {
+            color: "#373A40", // Warna garis kotak-kotak di sumbu X
+          },
         },
       },
     };
@@ -152,6 +170,7 @@ const BarChart = () => {
     }
 
     const cpr = chartPolaRef.current.getContext("2d");
+    if(!cpr) return;
     const dataPola = {
       labels: [
         "Januari",
@@ -200,6 +219,14 @@ const BarChart = () => {
       scales: {
         y: {
           beginAtZero: true,
+          grid: {
+            color: "#373A40", // Warna garis kotak-kotak di sumbu Y
+          },
+        },
+        x: {
+          grid: {
+            color: "#373A40", // Warna garis kotak-kotak di sumbu X
+          },
         },
       },
     };
@@ -212,9 +239,27 @@ const BarChart = () => {
     });
   };
 
-  useEffect(() => {
-    InisialisasiChart();
-  }, [hitungSeluruhNotadinas, hitungSeluruhDisposisi]);
+ const toggleCard = (card) => {
+     setIsOpen((prev) => ({
+      ...prev,
+      [card]: !prev[card],
+     }))
+   };
+
+   useEffect(() => {
+    if (
+      (isOpen && chartRef.current) || 
+      (isOpen && chartPolaRef.current)
+    ) {
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+      }
+      setTimeout(() => {
+        InisialisasiChart(); // Pastikan dipanggil setelah render selesai
+      }, 100);
+    }
+  }, [hitungSeluruhNotadinas, hitungSeluruhDisposisi, isOpen]);
+  
 
   useEffect(() => {
     hitungNotadinas();
@@ -228,16 +273,41 @@ const BarChart = () => {
         <div className="row">
           <div className="col-md-12">
             <div className="card card-mychart">
-              <div className="card-body">
-                <canvas ref={chartRef} className="charts"></canvas>
+
+              <div className="d-flex justify-content-between align-items-center">
+                  <span className='text-center flex-grow-1 text-minimize'>
+                    {isOpen.chart ? "" : "Chart Data Tertutup"}
+                  </span>
+
+                  <span className='fs-4 cursor-pointer text-light' onClick={() => toggleCard('chart')}>
+                    {isOpen.chart ? <FaSquareMinus /> : <FaWindowMaximize />}
+                  </span>
               </div>
+
+              {isOpen.chart && (
+                <div className={`card-body card-bar ${isOpen.chart ? "show" : "close"}`}>
+                  <canvas ref={chartRef} className="charts"></canvas>
+                </div>
+              )}
             </div>
           </div>
           <div className="col-md-12 col-sm-12 my-4">
             <div className="card card-mychartPolar">
-              <div className="card-bod">
-                <canvas ref={chartPolaRef} className="chartPola"></canvas>
-              </div>
+                <div className="d-flex justify-content-between align-items-center">
+                      <span className='text-center flex-grow-1 text-minimize'>
+                        {isOpen.chart2 ? "" : "Chart Data Tertutup"}
+                      </span>
+
+                      <span className='fs-4 cursor-pointer text-light' onClick={() => toggleCard('chart2')}>
+                        {isOpen.chart2 ? <FaSquareMinus /> : <FaWindowMaximize />}
+                      </span>
+                </div>
+
+              {isOpen.chart2 && (
+                <div className={`card-body card-bar ${isOpen.chart2 ? "show" : "close"}`}>
+                  <canvas ref={chartPolaRef} className="chartPola"></canvas>
+                </div>
+              )}
             </div>
           </div>
         </div>

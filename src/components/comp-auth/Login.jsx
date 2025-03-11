@@ -62,8 +62,9 @@ const Login = () => {
                     />
                   </div>
                   <div className="d-flex flex-column col-md-12 mt-3 text-center">
-                    <h3>Login</h3>
-                    <p>WELCOME TO SILOGAD RESKARIMUN</p>
+                    <h3>WELCOME TO SALOKA</h3>
+                    <p>SISTEM ADMINISTRASI LOGISTIK POLRES KARIMUN</p>
+                
                     {message && (
                       <div className="alert alert-danger" role="alert">
                         {message}

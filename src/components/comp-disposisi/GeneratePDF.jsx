@@ -65,7 +65,7 @@ const GeneratePDF = ({ id }) => {
   };
 
   return (
-    <button className="btn btn-primary" onClick={hasilPDF}>
+    <button className="btn-addtoprint" onClick={hasilPDF}>
       <FaPrint/>
     </button>
   );

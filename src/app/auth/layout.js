@@ -3,9 +3,9 @@ import "@/app/css/auth.css";
 
 export const metadata = {
   // LOGAD (LOGISTIK ADMINISTRASI)
-  title: "Admin - auth",
+  title: "SALOKA - auth",
   description:
-    "SILOGAD - SISTEM INFORMASI LOGISTIK DAN ADMINISTRASI RESKARIMUN",
+    "SALOKA - SISTEM ADMINISTRASI LOGISTIK POLRES KARIMUN",
 };
 
 export default function AuthLayout({children}) {
