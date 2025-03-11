@@ -23,10 +23,8 @@ const BarChart = () => {
 
   const [hitungPengajuanNotaDinas, setHitungPengajuanNotaDinas] = useState(0);
 
-  const [isOpen, setIsOpen] = useState({
-    chart: false,
-    chart2: false,
-  })
+  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen2, setIsOpen2] = useState(false)
 
   const groupByMonth = (data, dateField) => {
     const groupedData = Array(12).fill(0); // Array untuk 12 bulan
@@ -99,6 +97,7 @@ const BarChart = () => {
   } 
 
   const InisialisasiChart = () => {
+    if(!chartRef.current) return;
     if (chart.current !== null) {
       chart.current.destroy();
     }
@@ -164,10 +163,15 @@ const BarChart = () => {
       options: options,
     });
 
-    // Grafik kedua
+  };
+
+  const InisialisasiChart2 = () => {
+     // Grafik kedua
     if(chart2.current){
       chart2.current.destroy();
     }
+
+    if(!chartPolaRef.current) return;
 
     const cpr = chartPolaRef.current.getContext("2d");
     if(!cpr) return;
@@ -237,29 +241,35 @@ const BarChart = () => {
       data: dataPola,
       options: optionsCpr,
     });
+  }
+
+ const toggleCard = () => {
+     setIsOpen((prev) => !prev)
+  };
+ const toggleCard2 = () => {
+     setIsOpen2((prev) => !prev)
   };
 
- const toggleCard = (card) => {
-     setIsOpen((prev) => ({
-      ...prev,
-      [card]: !prev[card],
-     }))
-   };
-
    useEffect(() => {
-    if (
-      (isOpen && chartRef.current) || 
-      (isOpen && chartPolaRef.current)
-    ) {
+    if (isOpen && chartRef.current) {
+      // Hapus chart lama jika ada
       if (chartInstance.current) {
         chartInstance.current.destroy();
       }
-      setTimeout(() => {
-        InisialisasiChart(); // Pastikan dipanggil setelah render selesai
-      }, 100);
+      InisialisasiChart();
     }
+  
   }, [hitungSeluruhNotadinas, hitungSeluruhDisposisi, isOpen]);
   
+   useEffect(() => {
+    if (isOpen2 && chartPolaRef.current) {
+      // Hapus chart lama jika ada
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+      }
+      InisialisasiChart2();
+    }
+  }, [hitungSeluruhNotadinas, hitungSeluruhDisposisi, isOpen2]);
 
   useEffect(() => {
     hitungNotadinas();
@@ -276,16 +286,16 @@ const BarChart = () => {
 
               <div className="d-flex justify-content-between align-items-center">
                   <span className='text-center flex-grow-1 text-minimize'>
-                    {isOpen.chart ? "" : "Chart Data Tertutup"}
+                    {isOpen ? "" : "Chart Data Tertutup"}
                   </span>
 
-                  <span className='fs-4 cursor-pointer text-light' onClick={() => toggleCard('chart')}>
-                    {isOpen.chart ? <FaSquareMinus /> : <FaWindowMaximize />}
+                  <span className='fs-4 cursor-pointer text-light' onClick={toggleCard}>
+                    {isOpen ? <FaSquareMinus /> : <FaWindowMaximize />}
                   </span>
               </div>
 
-              {isOpen.chart && (
-                <div className={`card-body card-bar ${isOpen.chart ? "show" : "close"}`}>
+              {isOpen && (
+                <div className={`card-body card-bar ${isOpen ? "show" : "close"}`}>
                   <canvas ref={chartRef} className="charts"></canvas>
                 </div>
               )}
@@ -295,16 +305,16 @@ const BarChart = () => {
             <div className="card card-mychartPolar">
                 <div className="d-flex justify-content-between align-items-center">
                       <span className='text-center flex-grow-1 text-minimize'>
-                        {isOpen.chart2 ? "" : "Chart Data Tertutup"}
+                        {isOpen2 ? "" : "Chart Data Tertutup"}
                       </span>
 
-                      <span className='fs-4 cursor-pointer text-light' onClick={() => toggleCard('chart2')}>
-                        {isOpen.chart2 ? <FaSquareMinus /> : <FaWindowMaximize />}
+                      <span className='fs-4 cursor-pointer text-light' onClick={toggleCard2}>
+                        {isOpen2 ? <FaSquareMinus /> : <FaWindowMaximize />}
                       </span>
                 </div>
 
-              {isOpen.chart2 && (
-                <div className={`card-body card-bar ${isOpen.chart2 ? "show" : "close"}`}>
+              {isOpen2 && (
+                <div className={`card-body card-bar ${isOpen2 ? "show" : "close"}`}>
                   <canvas ref={chartPolaRef} className="chartPola"></canvas>
                 </div>
               )}

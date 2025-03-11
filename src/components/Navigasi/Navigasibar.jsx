@@ -61,19 +61,40 @@ const Navigasibar = () => {
     }
   }, [pathname]);
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (e) => {
+    // 1. Stop event bubbling ke parent
+    e.stopPropagation();
+    
+    // 2. Toggle state seperti biasa
     setIsDropdownOpen(!isDropdownOpen);
     setIsDropdownOpenDisposisi(false);
+  
+    // 3. Pasang event listener langsung ke document
+    if (!isDropdownOpen) {
+      document.addEventListener('click', () => setIsDropdownOpen(false), { once: true });
+    }
   };
 
-  const toggleDropdownDisposisi = () => {
+  const toggleDropdownDisposisi = (e) => {
+    e.stopPropagation();
+
     setIsDropdownOpenDisposisi(!isDropdownOpenDisposisi);
     setIsDropdownOpen(false);
+
+    if (!isDropdownOpenDisposisi) {
+      document.addEventListener('click', () => setIsDropdownOpenDisposisi(false), { once: true });
+    }
   };
 
-  const toggleDropdownUser = () => {
+  const toggleDropdownUser = (e) => {
+    e.stopPropagation();
+
     setIsDropdownOpenUser(!isDropdownOpenUser);
     setIsDropdownOpen(false);
+
+    if (!isDropdownOpenUser) {
+      document.addEventListener('click', () => setIsDropdownOpenUser(false), { once: true });
+    }
 
   };
 
@@ -99,7 +120,7 @@ const Navigasibar = () => {
           </a>
 
           <div className="d-flex justify-content-end">
-            <button className="btn-user d-flex justify-content-center align-items-center" onClick={toggleDropdownUser}>
+            <button className="btn-user d-flex justify-content-center align-items-center" onClick={(e) => toggleDropdownUser(e)}>
               <FaUserNurse className="icon"/>
             </button>
             {isDropdownOpenUser && (
@@ -132,7 +153,7 @@ const Navigasibar = () => {
             <div className="dropdown">
               <div
                 className={`pointer dropdown-toggle ${menuActiveClass("Nota Dinas")}`}
-                onClick={toggleDropdown}
+                onClick={(e) => toggleDropdown(e)}
               >
                 {activeMenu === "Nota Dinas" ? activeSubMenu : "Nota Dinas"}
               </div>
@@ -169,10 +190,11 @@ const Navigasibar = () => {
                 </div>
               )}
             </div>
+
             <div className="dropdown">
               <div
                 className={`pointer dropdown-toggle ${menuActiveClass("Disposisi")}`}
-                onClick={toggleDropdownDisposisi}
+                onClick={(e) => toggleDropdownDisposisi(e)}
               >
                 {activeMenu === "Disposisi" ? activeSubMenu : "Disposisi"}
               </div>
